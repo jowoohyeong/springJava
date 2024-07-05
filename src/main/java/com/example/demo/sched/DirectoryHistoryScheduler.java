@@ -13,12 +13,12 @@ import java.io.File;
 public class DirectoryHistoryScheduler {
 
 
-    @Scheduled(fixedDelay=5000, initialDelay=5000)
+    //@Scheduled(fixedDelay=5000000, initialDelay=5000)
     public void execute() {
         String path = "D:\\문서";
         try {
             File directory = new File(path);
-            System.out.println("directory = " + directory);
+            //System.out.println("directory = " + directory);
 
             FileAlterationObserver observer = new FileAlterationObserver(directory);
             FileAlterationListener listener = new MonitoringService();
@@ -34,6 +34,12 @@ public class DirectoryHistoryScheduler {
                 monitor.start();
             } catch (Exception e) {
                 e.printStackTrace();
+
+                try {
+                    monitor.stop();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
             }
 
         } catch (Exception e) {
