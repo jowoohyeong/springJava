@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.sched.DirectoryHistoryScheduler;
 import com.example.demo.service.EventPublisher;
+import com.example.demo.service.SerializableExample;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +21,8 @@ public class DemoApplication implements CommandLineRunner {
 
 	private final DirectoryHistoryScheduler directoryHistoryScheduler;
 
+	private final SerializableExample serializableExample;
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 
@@ -30,5 +33,7 @@ public class DemoApplication implements CommandLineRunner {
 		eventPublisher.publishEvent("Hello, this is a custom event!");
 		directoryHistoryScheduler.execute();
 
+
+		serializableExample.service();
 	}
 }
