@@ -2,13 +2,16 @@ package com.example.demo;
 
 import com.example.demo.sched.DirectoryHistoryScheduler;
 import com.example.demo.service.EventPublisher;
+import com.example.demo.service.SocketOpenService;
+import com.example.demo.service.socket.IOSimpleBlockingServerApplication;
 import com.example.demo.service.SerializableExample;
+import com.example.demo.service.socket.IOThreadBlockingServerApplication;
+import com.example.demo.service.socket.IOThreadPoolBlockingServerApplication;
+import com.example.demo.service.socket.NioBlockingServerApplication;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
@@ -23,6 +26,7 @@ public class DemoApplication implements CommandLineRunner {
 
 	private final SerializableExample serializableExample;
 
+	private final SocketOpenService socketOpenService;
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 
@@ -35,5 +39,10 @@ public class DemoApplication implements CommandLineRunner {
 
 
 		serializableExample.service();
+
+		socketOpenService.service();
+
+
+
 	}
 }
