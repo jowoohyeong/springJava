@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.sched.DirectoryHistoryScheduler;
 import com.example.demo.service.EventPublisher;
 import com.example.demo.service.SocketOpenService;
+import com.example.demo.service.netty.NettyServer;
 import com.example.demo.service.socket.IOSimpleBlockingServerApplication;
 import com.example.demo.service.SerializableExample;
 import com.example.demo.service.socket.IOThreadBlockingServerApplication;
@@ -27,9 +28,10 @@ public class DemoApplication implements CommandLineRunner {
 	private final SerializableExample serializableExample;
 
 	private final SocketOpenService socketOpenService;
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-
+	public static void main(String[] args) throws InterruptedException {
+		//SpringApplication.run(DemoApplication.class, args);
+		int port = 9005;
+		new NettyServer(port).start();
 	}
 
 	@Override
@@ -38,11 +40,7 @@ public class DemoApplication implements CommandLineRunner {
 		directoryHistoryScheduler.execute();
 
 
-		serializableExample.service();
-
+//		serializableExample.service();
 		socketOpenService.service();
-
-
-
 	}
 }
