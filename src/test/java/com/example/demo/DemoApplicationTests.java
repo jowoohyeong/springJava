@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -79,5 +81,13 @@ class DemoApplicationTests {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	void formatterExample() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String str = "20220404";
+		LocalDateTime a = LocalDateTime.parse(str+" 00:00:00", formatter);
+		System.out.println("\n\n\n\n\n"+a);
 	}
 }

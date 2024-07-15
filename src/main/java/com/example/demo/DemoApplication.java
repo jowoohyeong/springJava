@@ -13,12 +13,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @EnableScheduling
 @SpringBootApplication
 @AllArgsConstructor
+@ComponentScan(basePackages = "com.example")
 public class DemoApplication implements CommandLineRunner {
 
 	private final EventPublisher eventPublisher;
@@ -29,7 +31,7 @@ public class DemoApplication implements CommandLineRunner {
 
 	private final SocketOpenService socketOpenService;
 	public static void main(String[] args) throws InterruptedException {
-		//SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 		int port = 9005;
 		new NettyServer(port).start();
 	}
