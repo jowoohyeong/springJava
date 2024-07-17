@@ -6,8 +6,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoLController {
@@ -24,25 +27,30 @@ public class LoLController {
 
         System.out.println(elem);
         String data = elem.toString();
-        System.out.println("================================================");
 
-        for(Element e: elem.select("dt")) {
-//            if (e.className().equals("photo")) {
-//                continue;
-//            }
-            System.out.println(e.text());
+        // 덱 이름 추출.
+        Elements divs = doc.select("div.css-1xsl2fm.emls75t4");
+        List<String> metaName = divs.stream().map(Element::text).toList();
 
-            data += e.text();
-            cnt++;
-        }
+        Elements metaDivs = doc.select("div.css-1vo3wqf.emls75t3");
+        List<String> metaMember = metaDivs.stream().map(Element::text).toList();
 
         System.out.println("================================================");
+
         //제목만
-        for(Element e: elem.select("Strong")) {
-            //System.out.println(e.text());
-            cnt++;
+
+        for (int i =0; i < metaName.size(); i++) {
+            String name = metaName.get(i);
+            String[] members = metaMember.get(i).split(" ");
+            String member = "";
+            System.out.println("< " + name + " > 총:" + members[members.length-4]);
+
+            for(int j =0;j<members.length-4;j++){
+                member += members[j];
+            }
+            System.out.println(member);
+
         }
-        System.out.println(cnt);
 
         return data;
     }
