@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .image-div > img{
+        width:200px;
+        height:200px;
+    }
+</style>
+<head>
+    <title>이미지 출력</title>
+</head>
+<body>
+    <h1>이미지 출력 예제</h1>
+    <div class="image-div">
+        <th:block th:each="item, imageList: ${imageList}" style="display:flex">
+            <img th:id="'image' + ${imageList.index}" alt="Example Image" th:src="@{${path+item}}">
+        </th:block>
+    </div>
+</body>
+</html>
