@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이미지 출력</title>
+</head>
+<body>
+    <h1>이미지 출력 예제</h1>
+    <div id="test" th:if="${imagePath}">
+        <img id="main" alt="Example Image" th:src="@{${imagePath}}">
+    </div>
+</body>
+</html>
