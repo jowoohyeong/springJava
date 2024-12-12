@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포트폴리오</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            /*color: #333;*/
+            color: #958989;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            /*background: #333;*/
+            background: #958989;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        .showcase {
+            min-height: 400px;
+            /*background: url('showcase.jpg') no-repeat 0 -400px;*/
+            text-align: center;
+            color: #fff;
+        }
+        .showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .section {
+            margin: 20px 0;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #0779e4;
+            padding-bottom: 5px;
+        }
+        footer {
+            /*background: #333;*/
+            background: #958989;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+        #header {position:absolute; top:0px; z-index:99; width:100%; transition:top 1s .2s, border .3s;  }
+
+        /*�ΰ� */
+        #header h1 {position:absolute; top:0px; left:2.5%; width:290px; height:90px; z-index:10;   }
+        #header h1 > a{display:block; width:100%; height:100%; /*background:url(../images/common/logo.png)*/ no-repeat center; font-size: 0; text-indent: 100%;}
+
+        /* ���θ޴� */
+        #header nav {display:block;position:absolute;top:0;right: 50%;z-index:10;margin-right: -364px;}
+        #header nav .gnb > li{display:inline-block; position:relative; padding:0px 30px;}
+        #header nav .gnb > li:last-child:after{background:none;}
+        #header nav .gnb > li > a{display:inline-block; font-size:18px; line-height:90px; color:#222; transition:all 0.3s ease-out 0s; font-weight:500; font-family: 's-core';}
+        #header nav .gnb > li > a > i{display:none;}
+        #header nav .gnb > li > a:hover{color:#13a1a9;}
+        #header nav .gnb > li > a.on{color:#13a1a9;}
+        /*@media all and (min-width:1024px){*/
+        #header nav .gnb > li ul {display:none;position:absolute;opacity:0;visibility:hidden;top:50px;right: 50%;margin-right: -100px;min-width: 200px;width:100%;padding:9px 12px;background:#fff;border:1px solid #444;box-shadow:15px 20px 29px 0px rgba(0, 0, 0, 0.23);transition:all 0.4s ease-out;transition-property:opacity, top, visibility;transition-delay:0s, 0s, 0s;}
+        #header nav .gnb > li ul.active{display:block !important; transition-delay:0.1s;}
+        #header nav .gnb > li.active ul{opacity:1; visibility:visible; top:80px; z-index:10; transition-delay:0s, 0s, 0s;}
+        #header nav .gnb > li ul > li > a{display:block; position:relative; padding:11px 11px; background:#fff; border-top:1px solid #e1e1e1; font-size:15px; color:#404040; text-align:left; transition:all 0.3s ease 0s;}
+        #header nav .gnb > li ul > li > a:hover{opacity:0.5;}
+        #header nav .gnb > li ul > li:first-child > a{border-top-width:0px;}
+        #header nav .gnb > li ul > li.active > a{color:#222;}
+        #header nav .gnb > li ul > li > ul.lm_2d_ {display:none !important;}
+        /*}*/
+        /*#header nav .gnb > li:hover > a{opacity:1; color:#25aecd; }*/
+    </style>
+</head>
+
+<body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function() {
+        const hoverBox = $("#header nav .gnb > li")
+        hoverBox.on('mouseover', function(){
+            $(this).addClass("active");
+        });
+        hoverBox.on('mouseout', function(){
+            $(this).removeClass("active");
+        });
+    });
+</script>
+<header id="header">
+    <div class="container">
+        <h1>내 포트폴리오</h1>
+        <nav id="gnb">
+            <ul class="gnb">
+                <li><a href="#about">자기소개</a>
+                    <ul class="active">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projects">프로젝트</a>
+                    <ul class="active">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#skills">기술 스킬</a>
+                    <ul class="active">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#experience">경력</a>
+                    <ul class="active">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">연락처</a>
+                    <ul class="active">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="showcase">
+    <div class="container">
+        <h1>환영합니다!</h1>
+        <p>제 포트폴리오에 오신 것을 환영합니다. 다양한 프로젝트와 경험을 공유합니다.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div id="about" class="section content">
+        <h2>자기소개</h2>
+        <p>안녕하세요. 조우형입니다.</p>
+    </div>
+
+    <div id="projects" class="section content">
+        <h2>프로젝트</h2>
+        <p>여기에 프로젝트 목록을 추가하세요.</p>
+    </div>
+
+    <div id="skills" class="section content">
+        <h2>기술 스킬</h2>
+        <p>여기에 보유한 기술 목록을 작성하세요.</p>
+    </div>
+
+    <div id="experience" class="section content">
+        <h2>경력</h2>
+        <p>여기에 경력을 추가하세요.</p>
+    </div>
+
+    <div id="contact" class="section content">
+        <h2>연락처</h2>
+        <p>010-5038-5096</p>
+    </div>
+</div>
+
+<footer>
+    <p>Copyright © 2024. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
