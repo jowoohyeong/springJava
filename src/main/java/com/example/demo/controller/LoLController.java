@@ -18,7 +18,6 @@ public class LoLController {
     @GetMapping("/tft")
     @ResponseBody
     public String tft() throws Exception{
-        int cnt = 0;
         String URL = "https://lolchess.gg/meta";
         Document doc = Jsoup.connect(URL).get();
 
@@ -35,10 +34,12 @@ public class LoLController {
         Elements metaDivs = doc.select("div.css-1vo3wqf.emls75t3");
         List<String> metaMember = metaDivs.stream().map(Element::text).toList();
 
+        // 아이콘 설명
+        Elements description = doc.select("script#__NEXT_DATA__");
+        String desc = description.toString();
         System.out.println("================================================");
-
+//        __NEXT_DATA__
         //제목만
-
         for (int i =0; i < metaName.size(); i++) {
             String name = metaName.get(i);
             String[] members = metaMember.get(i).split(" ");
@@ -52,6 +53,11 @@ public class LoLController {
 
         }
 
-        return data;
+        return data+desc;
+    }
+
+    @GetMapping("tfttest")
+    public String test(){
+        return "/test";
     }
 }
