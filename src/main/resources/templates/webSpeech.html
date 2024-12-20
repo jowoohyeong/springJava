@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Captioning</title>
+    <style>
+        #captions {
+            font-size: 24px;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-time Captioning with Web Speech API</h1>
+    <div id="captions">Captions will appear here...</div>
+    <button id="startButton">Start</button>
+    <button id="stopButton">Stop</button>
+
+    <script>
+        const captionsDiv = document.getElementById('captions');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+
+        // Check if Web Speech API is supported
+        if (!('webkitSpeechRecognition' in window)) {
+            captionsDiv.innerText = 'Web Speech API is not supported by this browser.';
+        } else {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'ko-KR'; // Change to your desired language
+            recognition.interimResults = true; // Show interim results
+
+            recognition.onresult = (event) => {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                captionsDiv.innerText = transcript;
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error detected: ' + event.error);
+            };
+
+            startButton.addEventListener('click', () => {
+                recognition.start();
+            });
+
+            stopButton.addEventListener('click', () => {
+                recognition.stop();
+            });
+        }
+    </script>
+</body>
+</html>

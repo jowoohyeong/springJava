@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>이미지 출력</title>
+</head>
+<body>
+    <script>
+
+        var player;
+
+        function onYoutubeIframeApiReady() {
+            player = new YT.Player('player', {
+                width: '640',
+                height: '360',
+                videoId: 'M7Ic1UVf-VE',
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+    </script>
+    <iframe width="1000px" height="500px;" src="https://www.youtube.com/embed/MpkpcLYlZ58?si=Yp9EnTqI8fjB4NVW"></iframe>
+
+    <video width="800" height="450" controls>
+        <source src="http://localhost:8888/upload/test.mp4" type="video/mp4">
+
+    </video>
+</body>
+</html>
