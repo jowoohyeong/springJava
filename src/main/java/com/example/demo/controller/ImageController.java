@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class ImageController {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     final private String path = "/images/";
     @GetMapping("/image")
     public String image(Model model){
+        logger.info("image > 맹구 테스트");
 
         String filename = "맹구4.png";
 
