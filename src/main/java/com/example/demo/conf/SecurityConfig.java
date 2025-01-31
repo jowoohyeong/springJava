@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
+//@Configuration
 public class SecurityConfig {
 
     @Bean

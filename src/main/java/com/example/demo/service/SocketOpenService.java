@@ -20,7 +20,7 @@ public class SocketOpenService {
         //	ioSimpleBlockingServerApplication.service();
        	//	ioThreadBlockingServerApplication.service();
        	//	ioThreadPoolBlockingServerApplication.service();
-		nioNonBlockingSelectorServerApplication.service();
+		// nioNonBlockingSelectorServerApplication.service();
 
     }
 

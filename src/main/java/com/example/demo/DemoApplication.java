@@ -32,8 +32,10 @@ public class DemoApplication implements CommandLineRunner {
 	private final SocketOpenService socketOpenService;
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(DemoApplication.class, args);
+		/*
+		켜져 있으면 어떻게 할건지 동작 필요!
 		int port = 9005;
-		new NettyServer(port).start();
+		new NettyServer(port).start();*/
 	}
 
 	@Override
