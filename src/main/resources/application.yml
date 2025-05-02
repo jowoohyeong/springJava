@@ -8,6 +8,30 @@ spring:
       name: admin
       password: admin
 
+  # mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/board?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+
+  #JPA
+  jpa:
+    hiberate:
+      # none -> 엔티티 변경되더라도 DB 변경 x
+      # update -> 엔티티 변경된 부분만 적용
+      # validate -> 변경사항 있는지만 검사
+      # create -> 실행 시점에 테이블을 생성(재생성)
+      # create -> 위와 동일하지만 서버 종료될 때도 모두 drop
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        highlight_sql: true
+    defer-datasource-initialization: true
+
+
 server:
   port: 8888
 
