@@ -4,6 +4,7 @@ import com.example.demo.service.MonitoringService;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +13,12 @@ import java.io.File;
 @Component
 public class DirectoryHistoryScheduler {
 
+    @Value("${changeFilePath}")
+    String filePath;
 
     //@Scheduled(fixedDelay=5000000, initialDelay=5000)
     public void execute() {
-        String path = "D:\\문서";
+        String path = filePath;
         try {
             File directory = new File(path);
             //System.out.println("directory = " + directory);

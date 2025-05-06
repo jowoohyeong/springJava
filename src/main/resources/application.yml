@@ -50,3 +50,5 @@ logging:
     name: logs/app.log
     max-size: 10MB
     max-history: 30
+
+changeFilePath: D:/workspace/
