@@ -28,6 +28,9 @@ dependencies {
 
 	implementation 'mysql:mysql-connector-java:8.0.33' //MySQL
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' //JPA
+	implementation 'org.springframework.boot:spring-boot-starter-cache' //JPA
+
+	runtimeOnly 'com.h2database:h2'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

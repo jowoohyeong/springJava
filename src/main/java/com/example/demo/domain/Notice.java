@@ -1,13 +1,11 @@
 package com.example.demo.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,8 +18,16 @@ public class Notice {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "content")
     private String content;
+
+    @Column(name = "writer")
     private String writer;
+
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
+
 }
