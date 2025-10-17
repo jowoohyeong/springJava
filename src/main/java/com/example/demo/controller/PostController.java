@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Board;
 import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,20 +16,19 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/")
+    @GetMapping
     public String post(Model model){
         model.addAttribute("postList", postService.findList());
 
-        return "post/form";
+        return "post/post";
     }
     @GetMapping("/add")
     public String form(Model model){
-        model.addAttribute("postList", postService.findList());
-
-        return "post";
+        model.addAttribute("board", Board.class);
+        return "post/form";
     }
     @PostMapping("/add")
-    public void add(Model model){
-        model.addAttribute("postList", postService.findList());
+    public void add(Model model, Board board){
+
     }
 }
