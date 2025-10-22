@@ -1,8 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
-import com.example.demo.domain.Notice;
-import com.example.demo.service.NoticeService;
-import com.example.demo.service.PostService;
+import com.example.demo.web.domain.Notice;
+import com.example.demo.web.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.example.demo.web.repository;
 
-import com.example.demo.domain.Notice;
+import com.example.demo.web.domain.Notice;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

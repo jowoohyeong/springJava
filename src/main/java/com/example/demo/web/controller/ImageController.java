@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

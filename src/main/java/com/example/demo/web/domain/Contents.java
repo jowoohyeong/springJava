@@ -1,5 +1,10 @@
-package com.example.demo.domain;
+package com.example.demo.web.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,6 +28,9 @@ public class Contents {
     @Column(name = "writer", length = 100)
     private String writer;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)       //직렬화시 필요
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)   //역직렬화시 필요
+    @JsonFormat(pattern = "yyyy-MM-dd kk:mm:ss")                //원하는 형태의 LocalDateTime
     @CreationTimestamp
     @Column(name = "reg_date")
     private LocalDateTime regDate;

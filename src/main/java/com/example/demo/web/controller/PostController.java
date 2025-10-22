@@ -1,7 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.web.controller;
 
-import com.example.demo.domain.Contents;
-import com.example.demo.service.PostService;
+import com.example.demo.web.domain.Contents;
+import com.example.demo.web.service.PostService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
+    @Operation(summary = "게시글 목록 조회",  description = "게시글 전체 목록을 조회합니다.")
     public String post(Model model){
         model.addAttribute("postList", postService.findList());
 
@@ -58,8 +60,8 @@ public class PostController {
     }
 
     @DeleteMapping("/{seq}")
-    public String remove(@PathVariable Long seq){
-        postService.remove(seq);
+    public String deleteBySeq(@PathVariable Long seq){
+        postService.deleteBySeq(seq);
 
         return "redirect:/post";
     }

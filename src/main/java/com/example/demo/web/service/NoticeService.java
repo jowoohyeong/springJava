@@ -1,7 +1,7 @@
-package com.example.demo.service;
+package com.example.demo.web.service;
 
-import com.example.demo.domain.Notice;
-import com.example.demo.repository.NoticeRepository;
+import com.example.demo.web.domain.Notice;
+import com.example.demo.web.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
