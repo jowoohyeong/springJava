@@ -7,7 +7,10 @@ spring:
     user:
       name: admin
       password: admin
-
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   # mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,8 +38,6 @@ spring:
     defer-datasource-initialization: true
 
 
-
-
 server:
   port: 8888
   resources:
@@ -56,4 +57,4 @@ logging:
     max-size: 10MB
     max-history: 30
 
-changeFilePath: D:/workspace/
+changeFilePath: C:\Users\TIGEN0802\Desktop\move

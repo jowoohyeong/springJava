@@ -1,18 +1,14 @@
 package com.example.demo;
 
-import com.example.demo.sched.DirectoryHistoryScheduler;
+import com.example.demo.monitor.DirectoryEventMonitor;
 import com.example.demo.service.EventPublisher;
 import com.example.demo.service.SocketOpenService;
-import com.example.demo.service.netty.NettyServer;
-import com.example.demo.service.socket.IOSimpleBlockingServerApplication;
 import com.example.demo.service.SerializableExample;
-import com.example.demo.service.socket.IOThreadBlockingServerApplication;
-import com.example.demo.service.socket.IOThreadPoolBlockingServerApplication;
-import com.example.demo.service.socket.NioBlockingServerApplication;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -25,7 +21,7 @@ public class DemoApplication implements CommandLineRunner {
 
 	private final EventPublisher eventPublisher;
 
-	private final DirectoryHistoryScheduler directoryHistoryScheduler;
+	private final DirectoryEventMonitor directoryEventMonitor;
 
 	private final SerializableExample serializableExample;
 
@@ -41,8 +37,9 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		eventPublisher.publishEvent("Hello, this is a custom event!");
-		directoryHistoryScheduler.execute();
 
+		/* 정적 경로의 디렉터리 변동 확인 이벤트 */
+		directoryEventMonitor.execute();
 
 //		serializableExample.service();
 		socketOpenService.service();

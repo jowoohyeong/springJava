@@ -5,7 +5,7 @@
     <springProperty name="LOG_PATH"       source="logging.file.path.main"/>
     <springProperty name="LOG_FILE_NAME"  source="logging.file.name"/>
 
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%thread] [%logger{36}] - %msg%n"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %highlight(%level) [%thread] [%logger{0}] : %msg%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">

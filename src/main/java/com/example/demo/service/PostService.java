@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Board;
+import com.example.demo.domain.Contents;
 import com.example.demo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,21 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    @Transactional
-    public List<Board> findList(){
+    public List<Contents> findList(){
 //        return null;
         return postRepository.findAll();
+    }
+
+    public Contents findOne(Long seq){
+        return postRepository.findOne(seq);
+    }
+
+    @Transactional
+    public Contents save(Contents contents) {
+        return postRepository.save(contents);
+    }
+
+    public void remove(Long seq){
+        postRepository.remove(seq);
     }
 }

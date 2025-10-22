@@ -1,27 +1,27 @@
-package com.example.demo.sched;
+package com.example.demo.monitor;
 
 import com.example.demo.service.MonitoringService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 
+@Slf4j
 @Component
-public class DirectoryHistoryScheduler {
+public class DirectoryEventMonitor {
 
     @Value("${changeFilePath}")
     String filePath;
 
-    //@Scheduled(fixedDelay=5000000, initialDelay=5000)
     public void execute() {
         String path = filePath;
         try {
             File directory = new File(path);
-            //System.out.println("directory = " + directory);
+            log.info("{} :: path monitoring ,,,, ", filePath);
 
             FileAlterationObserver observer = new FileAlterationObserver(directory);
             FileAlterationListener listener = new MonitoringService();
@@ -29,7 +29,7 @@ public class DirectoryHistoryScheduler {
             // Observer에 Listener 추가
             observer.addListener(listener);
 
-            // FileAlterationMonitor 생성 (polling interval: 5000ms)
+            // FileAlterationMonitor 생성 (polling interval: 5000ms) 주기 5초
             FileAlterationMonitor monitor = new FileAlterationMonitor(5000, observer);
 
             try {

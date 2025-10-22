@@ -18,7 +18,6 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 
         p.addLast(new StringDecoder());     // 인바운드 처리: 바이트 데이터를 문자열로 변환
         p.addLast(new StringEncoder());     // 아웃바운드 처리: 문자열 데이터를 바이트 데이터로 변환
-
         p.addLast(new ServerHander());      // 비즈니스 로직을 처리하는 핸들러 추가
 
     }

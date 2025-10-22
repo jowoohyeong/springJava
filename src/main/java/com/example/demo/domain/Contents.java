@@ -1,28 +1,31 @@
 package com.example.demo.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "board")       // 테이블 이름 지정
-@Getter
-@Setter
-public class Board {
-    @Id @GeneratedValue
+@Table(name = "contents")       // 테이블 이름 지정
+@Data
+public class Contents {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
+    @NotBlank
     @Column(name = "title", length = 100)
     private String title;
 
+    @NotBlank
     @Column(name = "writer", length = 100)
     private String writer;
 
-    @Column(name = "created_Date", length = 100)
-    private String createdDate;
+    @CreationTimestamp
+    @Column(name = "reg_date")
+    private LocalDateTime regDate;
 
     @Size(max = 100)
     @Column(name = "content", length = 100)
