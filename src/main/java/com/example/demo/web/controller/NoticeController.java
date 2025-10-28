@@ -1,6 +1,6 @@
 package com.example.demo.web.controller;
 
-import com.example.demo.web.domain.Notice;
+import com.example.demo.web.domain.NoticeEntity;
 import com.example.demo.web.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class NoticeController {
     @GetMapping("")
     @Operation(summary = "공지사항 목록 조회",  description = "공지사항 전체 목록을 조회합니다.")
     public String notice(Model model){
-        List<Notice> noticeList = noticeService.getNoticeList();
-        model.addAttribute("list", noticeList);
+        List<NoticeEntity> noticeEntityList = noticeService.getNoticeList();
+        model.addAttribute("list", noticeEntityList);
 
         return "notice/notice-list";
     }

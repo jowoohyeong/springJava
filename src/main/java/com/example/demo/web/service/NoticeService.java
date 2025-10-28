@@ -1,6 +1,6 @@
 package com.example.demo.web.service;
 
-import com.example.demo.web.domain.Notice;
+import com.example.demo.web.domain.NoticeEntity;
 import com.example.demo.web.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     @Transactional
-    public List<Notice> getNoticeList(){
+    public List<NoticeEntity> getNoticeList(){
         return noticeRepository.findAll();
     }
 }

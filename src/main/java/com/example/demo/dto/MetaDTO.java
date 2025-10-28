@@ -13,6 +13,6 @@ public class MetaDTO {
     private String imageDiv;  //임시
     private List<SynergyVO> synergyList;
 
-    private List<ChampionVO> championList;
+    private List<ChampionDTO> championList;
 
 }
