@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @AllArgsConstructor
 @ComponentScan(basePackages = "com.example")
+@ConfigurationPropertiesScan
 public class DemoApplication implements CommandLineRunner {
 
 	private final EventPublisher eventPublisher;
@@ -36,7 +37,7 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		eventPublisher.publishEvent("Hello, this is a custom event!");
+		eventPublisher.publishEvent("Hello, this is a custom event Message!!");
 
 		/* 정적 경로의 디렉터리 변동 확인 이벤트 */
 		directoryEventMonitor.execute();

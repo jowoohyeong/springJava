@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class EventPublisher {
     private final ApplicationEventPublisher applicationEventPublisher;
 
-
     public EventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }

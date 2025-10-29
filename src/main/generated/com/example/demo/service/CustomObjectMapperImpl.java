@@ -7,21 +7,21 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-28T17:44:37+0900",
+    date = "2025-10-29T14:49:42+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.11 (Amazon.com Inc.)"
 )
 public class CustomObjectMapperImpl implements CustomObjectMapper {
 
     @Override
-    public ChampionDTO toDto(ChampionEntity arg0) {
-        if ( arg0 == null ) {
+    public ChampionDTO toDto(ChampionEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         ChampionDTOBuilder championDTO = ChampionDTO.builder();
 
-        championDTO.name( arg0.getName() );
-        championDTO.icon( arg0.getIcon() );
+        championDTO.name( entity.getName() );
+        championDTO.icon( entity.getIcon() );
 
         return championDTO.build();
     }
