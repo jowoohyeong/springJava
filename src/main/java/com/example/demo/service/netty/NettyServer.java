@@ -7,6 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 public class NettyServer {
@@ -15,7 +16,7 @@ public class NettyServer {
     public NettyServer(int port) {
         this.port = port;
     }
-    
+
     public void start() throws InterruptedException{
         EventLoopGroup bossGroup = new NioEventLoopGroup();     // 클라이언트 연결을 수락하는 스레드 그룹
         EventLoopGroup workerGroup = new NioEventLoopGroup();   // 데이터 읽기/쓰기 및 비즈니스 로직 처리를 담당하는 스레드 그룹
@@ -30,7 +31,6 @@ public class NettyServer {
 
             // 서버를 바인딩 하고 시작
             ChannelFuture f = b.bind(port).sync();
-            //log.info("Server started on port = " + port);
             System.out.println("Server started on port = " + port);
 
             // 채널이 닫힐 때까지 대기

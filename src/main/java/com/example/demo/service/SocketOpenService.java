@@ -17,11 +17,10 @@ public class SocketOpenService {
    	private final ServerApplication nioNonBlockingSelectorServerApplication;
 
     public void service() throws IOException {
-        //	ioSimpleBlockingServerApplication.service();
-       	//	ioThreadBlockingServerApplication.service();
-       	//	ioThreadPoolBlockingServerApplication.service();
-		// nioNonBlockingSelectorServerApplication.service();
-
+		ioSimpleBlockingServerApplication.service();
+       	ioThreadBlockingServerApplication.service();
+       	ioThreadPoolBlockingServerApplication.service();
+		nioNonBlockingSelectorServerApplication.service();
     }
 
 }

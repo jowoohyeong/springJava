@@ -1,4 +1,4 @@
-package com.example.demo.web.domain;
+package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

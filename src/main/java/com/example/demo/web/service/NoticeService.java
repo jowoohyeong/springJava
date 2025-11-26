@@ -1,6 +1,6 @@
 package com.example.demo.web.service;
 
-import com.example.demo.web.domain.NoticeEntity;
+import com.example.demo.domain.NoticeEntity;
 import com.example.demo.web.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

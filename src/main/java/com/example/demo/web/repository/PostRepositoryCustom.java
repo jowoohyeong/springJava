@@ -1,7 +1,7 @@
 package com.example.demo.web.repository;
 
 
-import com.example.demo.web.domain.Contents;
+import com.example.demo.domain.Contents;
 
 import java.util.List;
 

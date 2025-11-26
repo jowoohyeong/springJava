@@ -1,6 +1,6 @@
 package com.example.demo.web.service;
 
-import com.example.demo.web.domain.Contents;
+import com.example.demo.domain.Contents;
 import com.example.demo.web.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;

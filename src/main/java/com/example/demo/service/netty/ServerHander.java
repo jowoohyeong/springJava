@@ -1,9 +1,6 @@
 package com.example.demo.service.netty;
 
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelId;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.util.concurrent.EventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,6 +15,10 @@ public class ServerHander extends SimpleChannelInboundHandler<String> {
 
         // 클라이언트에 응답 메시지 전송
         ctx.writeAndFlush("echo: " + msg + "\n");
+
+        if ("quit".equals(msg)) {
+            ctx.close();
+        }
     }
 
 
