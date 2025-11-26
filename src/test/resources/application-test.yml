@@ -3,8 +3,6 @@ path:
   event-dir: C:\Users\TIGEN0802\Desktop\move
 
 spring:
-  profiles:
-    active: main
   data:
     redis:
       host: 127.0.0.1
@@ -18,15 +16,21 @@ spring:
       filter:
         enabled: true
   # mysql
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/board?serverTimezone=Asia/Seoul
+#    username: root
+#    password: 1234
+  # h2
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/board?serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
-
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/demo
+    username: sa
+    password:
   #JPA
   jpa:
-    database: mysql
+#    database: mysql
+    database: H2
     open-in-view: false
     hibernate:
       # none -> 엔티티 변경되더라도 DB 변경 x
@@ -34,7 +38,7 @@ spring:
       # validate -> 변경사항 있는지만 검사
       # create -> 실행 시점에 테이블을 생성(재생성)
       # create -> 위와 동일하지만 서버 종료될 때도 모두 drop
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -56,13 +60,3 @@ logging:
     root: INFO
     org.springframework: INFO
     com.example: DEBUG
-  file:
-    path:
-      main: D:/workspace/demo/logs/
-    name: logs/app.log
-    max-size: 10MB
-    max-history: 30
-
-socket:
-  netty:
-    port: 9005
