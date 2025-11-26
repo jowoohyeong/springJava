@@ -3,7 +3,6 @@ package com.example.demo.monitor;
 import com.example.demo.domain.Directory;
 import com.example.demo.repository.DirectoryRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.io.File;
 import java.nio.file.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
