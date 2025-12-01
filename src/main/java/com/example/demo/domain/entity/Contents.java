@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "contents")       // 테이블 이름 지정
 @Data
 public class Contents {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long seq;
 
     @NotBlank
@@ -27,6 +27,15 @@ public class Contents {
     @NotBlank
     @Column(name = "writer", length = 100)
     private String writer;
+
+    public Contents() {
+    }
+
+    public Contents(String title, String writer, String content) {
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+    }
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)       //직렬화시 필요
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)   //역직렬화시 필요
@@ -38,17 +47,4 @@ public class Contents {
     @Size(max = 100)
     @Column(name = "content", length = 100)
     private String content;
-
-    @Size(max = 100)
-    @Column(name = "reid", length = 100)
-    private String reid;
-
-    @Size(max = 100)
-    @Column(name = "relev", length = 100)
-    private String relev;
-
-    @Size(max = 100)
-    @Column(name = "reord", length = 100)
-    private String reord;
-
 }

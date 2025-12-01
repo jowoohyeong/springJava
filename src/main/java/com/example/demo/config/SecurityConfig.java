@@ -8,14 +8,14 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-//@Configuration
+@Configuration
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
 
-                .requestMatchers("/", "/h2-console/**", "/login*.do").permitAll()
+                .requestMatchers("/", "/h2-console/**", "/login*.do","/*").permitAll()
 //                .requestMatchers("/**").hasRole("ADMIN")
                 .anyRequest().authenticated()); // 모든 요청은 인증 필요
 

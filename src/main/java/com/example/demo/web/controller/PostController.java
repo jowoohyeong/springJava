@@ -1,6 +1,6 @@
 package com.example.demo.web.controller;
 
-import com.example.demo.domain.Contents;
+import com.example.demo.domain.entity.Contents;
 import com.example.demo.web.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

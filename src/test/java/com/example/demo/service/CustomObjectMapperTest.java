@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ChampionDTO;
-import com.example.demo.domain.ChampionEntity;
+import com.example.demo.domain.entity.ChampionEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

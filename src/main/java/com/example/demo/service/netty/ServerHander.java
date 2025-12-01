@@ -1,9 +1,7 @@
 package com.example.demo.service.netty;
 
 import io.netty.channel.*;
-import io.netty.util.concurrent.EventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Slf4j
 public class ServerHander extends SimpleChannelInboundHandler<String> {

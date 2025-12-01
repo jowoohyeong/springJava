@@ -1,7 +1,7 @@
 package com.example.demo.monitor;
 
 import com.example.demo.service.MonitoringService;
-import com.example.demo.domain.PathProperties;
+import com.example.demo.domain.entity.PathProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;

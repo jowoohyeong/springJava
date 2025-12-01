@@ -56,12 +56,12 @@ logging:
     root: INFO
     org.springframework: INFO
     com.example: DEBUG
-  file:
-    path:
-      main: D:/workspace/demo/logs/
-    name: logs/app.log
-    max-size: 10MB
-    max-history: 30
+#  file:
+#    path:
+#      main: D:/workspace/demo/logs/
+#    name: logs/app.log
+#    max-size: 10MB
+#    max-history: 30
 
 socket:
   netty:

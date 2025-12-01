@@ -1,6 +1,6 @@
 package com.example.demo.web.controller;
 
-import com.example.demo.domain.NoticeEntity;
+import com.example.demo.domain.entity.NoticeEntity;
 import com.example.demo.web.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

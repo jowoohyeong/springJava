@@ -1,7 +1,7 @@
 package com.example.demo.monitor;
 
-import com.example.demo.domain.Directory;
-import com.example.demo.repository.DirectoryRepository;
+import com.example.demo.domain.entity.Directory;
+import com.example.demo.repository.jpa.DirectoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.*;
 
 @SpringBootTest
@@ -63,9 +64,14 @@ class DirectoryEventMonitorTest {
             Files.move(movedFile.toPath(), destFile);
             log.info("✅ 파일 이동 성공: └─-> " + destFile);
 //        } catch (DirectoryNotEmptyException directoryNotEmptyException) {
-        } catch (FileAlreadyExistsException fileAlreadyExistsException) {
-            log.info("❌ 중복 파일명 존재 └─-> {}", destFile, fileAlreadyExistsException);
-        } catch (Exception e) {
+        } catch (FileAlreadyExistsException e) {
+            log.error("❌ 중복 파일명 존재 └─-> {}", destFile, e);
+        } catch (DirectoryNotEmptyException e) {
+            log.error("❌ 디렉터리가 비어있지 않습니다 - {}", destFile, e);
+        } catch (IOException e) {
+            log.error("파일 이동 중 IO 오류 발생 - {} -> {}", movedFile, destFile, e);
+        }catch (Exception e) {
+            log.error("파일 이동 중 알 수 없는 오류 발생 - {} -> {}", movedFile, destFile, e);
             e.printStackTrace();
         }
     }
