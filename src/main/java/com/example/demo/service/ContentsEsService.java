@@ -12,8 +12,8 @@ import java.util.List;
 public class ContentsEsService {
     private final ContentsEsRepository contentsEsRepository;
 
-    public ContentsDocument save(ContentsDocument doc){
-        return contentsEsRepository.save(doc);
+    public void save(ContentsDocument doc){
+        contentsEsRepository.save(doc);
     }
     public List<ContentsDocument> searchContents(String keyword) {
         return contentsEsRepository.findByTitle(keyword);
