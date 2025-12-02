@@ -2,11 +2,9 @@ package com.example.demo.service.elasticsearch;
 
 import com.example.demo.domain.document.ContentsDocument;
 import com.example.demo.domain.entity.Contents;
-import com.example.demo.domain.entity.Directory;
-import com.example.demo.repository.elasticsearch.ContentsEsRepository;
 import com.example.demo.repository.jpa.ContentsRepository;
 import com.example.demo.service.ContentsMapper;
-import com.example.demo.service.ContentsService;
+import com.example.demo.service.ContentsEsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,8 @@ import java.util.List;
 @ActiveProfiles("test")
 @Transactional
 class ContentsEsRepositoryTest {
-    @Autowired ContentsService contentsService;
+    @Autowired
+    ContentsEsService contentsEsService;
     @Autowired ContentsRepository contentsRepository;
     @BeforeEach
     @DisplayName("데이터 삽입")
@@ -32,9 +31,9 @@ class ContentsEsRepositoryTest {
         contentsRepository.save(contents1);
         contentsRepository.save(contents2);
         contentsRepository.save(contents3);
-        contentsService.save(ContentsMapper.toDocument(contents1));
-        contentsService.save(ContentsMapper.toDocument(contents2));
-        contentsService.save(ContentsMapper.toDocument(contents3));
+        contentsEsService.save(ContentsMapper.toDocument(contents1));
+        contentsEsService.save(ContentsMapper.toDocument(contents2));
+        contentsEsService.save(ContentsMapper.toDocument(contents3));
     }
     @Test
     void search() {
@@ -45,12 +44,12 @@ class ContentsEsRepositoryTest {
         }
         System.out.println("=========================================");
 
-        List<ContentsDocument> findList = contentsService.searchTitle("Air");
+        List<ContentsDocument> findList = contentsEsService.searchContents("Air");
         for (ContentsDocument contentsDocument : findList) {
             System.out.println("contentsDocument = " + contentsDocument);
         }
         System.out.println("=========================================");
-        List<ContentsDocument> findList2 = contentsService.searchTitle("에어 프로세스");
+        List<ContentsDocument> findList2 = contentsEsService.searchContents("\\에어 프로세스\\");
         for (ContentsDocument contentsDocument : findList2) {
             System.out.println("contentsDocument = " + contentsDocument);
         }

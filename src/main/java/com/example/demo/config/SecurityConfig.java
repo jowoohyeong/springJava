@@ -4,21 +4,22 @@ package com.example.demo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-public class SecurityConfig {
-
+public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-
-                .requestMatchers("/", "/h2-console/**", "/login*.do","/*").permitAll()
+                .anyRequest().permitAll())
+//                .requestMatchers("/", "/h2-console/**", "/login*.do","/*").permitAll()
 //                .requestMatchers("/**").hasRole("ADMIN")
-                .anyRequest().authenticated()); // 모든 요청은 인증 필요
-
+//                .anyRequest().authenticated()); // 모든 요청은 인증 필요
+                .csrf(AbstractHttpConfigurer::disable);      // CSRF 비활성화 ( Post 요청 허용을 위함 )
+        
         http.formLogin(login -> login
             .loginPage("/loginForm.do")
             .loginProcessingUrl("/loginChk.do")

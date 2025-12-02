@@ -46,8 +46,6 @@ dependencies {
 
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-	implementation 'co.elastic.clients:elasticsearch-java'
-	implementation 'com.fasterxml.jackson.core:jackson_databind'
 
 	runtimeOnly 'com.h2database:h2'
 	testCompileOnly 'org.projectlombok:lombok'

@@ -9,13 +9,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ContentsService {
+public class ContentsEsService {
     private final ContentsEsRepository contentsEsRepository;
 
     public ContentsDocument save(ContentsDocument doc){
         return contentsEsRepository.save(doc);
     }
-    public List<ContentsDocument> searchTitle(String keyword) {
-        return contentsEsRepository.findByTitleContaining(keyword);
+    public List<ContentsDocument> searchContents(String keyword) {
+        return contentsEsRepository.findByTitle(keyword);
     }
 }
