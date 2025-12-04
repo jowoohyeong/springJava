@@ -28,7 +28,7 @@ public class ContentsController {
     }
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestParam String title,
-                                       @RequestParam Long seq) {
+                                       @RequestParam String seq) {
         log.info("{}", getClass().getName());
         System.out.println("title = " + title);
         System.out.println("seq = " + seq);

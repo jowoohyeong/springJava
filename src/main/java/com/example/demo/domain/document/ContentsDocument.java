@@ -17,11 +17,9 @@ import java.time.LocalDateTime;
 @Document(indexName = "contents")
 public class ContentsDocument {
     @Id
-    private Long seq;
+    private String seq;
 
-    @Field(type = FieldType.Text,
-            analyzer = "ngram_analyzer",       // 부분 문자열 검색용 분석기
-            searchAnalyzer = "standard")
+    @Field(type = FieldType.Text)
     private String title;
 
     @Field(type = FieldType.Keyword)
