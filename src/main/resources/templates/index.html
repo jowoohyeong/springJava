@@ -1,89 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포트폴리오</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduce</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            /*color: #333;*/
-            color: #958989;
-            line-height: 1.6;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #777777;
         }
+
+        /* Header */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #9e9e9e;
+            padding: 15px 0;
+            z-index: 100;
+        }
+
         .container {
             width: 80%;
-            margin: auto;
-            overflow: hidden;
+            margin: 0 auto;
         }
-        header {
-            /*background: #333;*/
-            background: #958989;
+
+        #header h1 {
+            margin: 0;
             color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #0779e4 3px solid;
+            font-size: 26px;
+            font-weight: bold;
         }
-        .showcase {
-            min-height: 200px;
-            /*background: url('showcase.jpg') no-repeat 0 -400px;*/
-            text-align: center;
+
+        /* Navigation */
+        nav ul {
+            list-style: none;
+            margin: 10px 0 0 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
             color: #fff;
+            font-size: 16px;
         }
-        .showcase h1 {
-            margin-top: 100px;
-            font-size: 55px;
-            margin-bottom: 10px;
-        }
-        .content {
-            padding: 20px;
-        }
-        .section {
-            margin: 20px 0;
-        }
-        .section h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #0779e4;
-            padding-bottom: 5px;
-        }
-        footer {
-            /*background: #333;*/
-            background: #958989;
-            color: #fff;
-            text-align: center;
+
+        /* Dropdown */
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #c9c9c9;
             padding: 10px 0;
-            margin-top: 20px;
+            border-radius: 5px;
+            min-width: 140px;
+            z-index: 999;
+            margin-top: 0;
         }
 
-        #header {position:absolute; top:0px; z-index:99; width:100%; transition:top 1s .2s, border .3s;  }
+        .submenu li a {
+            display: block;
+            padding: 8px 15px;
+            color: #fff;
+            font-size: 14px;
+        }
 
-        /*�ΰ� */
-        #header h1 {position:absolute; top:0px; left:2.5%; width:290px; height:90px; z-index:10;   }
-        #header h1 > a{display:block; width:100%; height:100%; /*background:url(../images/common/logo.png)*/ no-repeat center; font-size: 0; text-indent: 100%;}
+        .submenu li a:hover {
+            background: #b5b5b5;
+        }
 
-        /* ���θ޴� */
-        #header nav {display:block;position:absolute;top:0;right: 50%;z-index:10;margin-right: -364px;}
-        #header nav .gnb > li{display:inline-block; position:relative; padding:0px 30px;}
-        #header nav .gnb > li:last-child:after{background:none;}
-        #header nav .gnb > li > a{display:inline-block; font-size:18px; line-height:90px; color:#222; transition:all 0.3s ease-out 0s; font-weight:500; font-family: 's-core';}
-        #header nav .gnb > li > a > i{display:none;}
-        #header nav .gnb > li > a:hover{color:#13a1a9;}
-        #header nav .gnb > li > a.on{color:#13a1a9;}
-        /*@media all and (min-width:1024px){*/
-        #header nav .gnb > li ul {display:none;position:absolute;opacity:0;visibility:hidden;top:50px;right: 50%;margin-right: -100px;min-width: 200px;width:100%;padding:9px 12px;background:#fff;border:1px solid #444;box-shadow:15px 20px 29px 0px rgba(0, 0, 0, 0.23);transition:all 0.4s ease-out;transition-property:opacity, top, visibility;transition-delay:0s, 0s, 0s;}
-        #header nav .gnb > li ul.active{display:block !important; transition-delay:0.1s;}
-        #header nav .gnb > li.active ul{opacity:1; visibility:visible; top:80px; z-index:10; transition-delay:0s, 0s, 0s;}
-        #header nav .gnb > li ul > li > a{display:block; position:relative; padding:11px 11px; background:#fff; border-top:1px solid #e1e1e1; font-size:15px; color:#404040; text-align:left; transition:all 0.3s ease 0s;}
-        #header nav .gnb > li ul > li > a:hover{opacity:0.5;}
-        #header nav .gnb > li ul > li:first-child > a{border-top-width:0px;}
-        #header nav .gnb > li ul > li.active > a{color:#222;}
-        #header nav .gnb > li ul > li > ul.lm_2d_ {display:none !important;}
-        /*}*/
-        /*#header nav .gnb > li:hover > a{opacity:1; color:#25aecd; }*/
+        /* 활성화된 메뉴 */
+        #header nav .gnb > li.active > .submenu {
+            display: block;
+        }
+
+        /* Showcase */
+        .showcase {
+            margin-top: 120px;
+            text-align: center;
+            padding: 4px 0;
+            background: #9e9e9e;
+            color: #fff;
+        }
+
+        .showcase h1 {
+            font-size: 22px;
+            margin-bottom: 1px;
+        }
+
+        /* Sections */
+        .section {
+            background: #fafafa;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            border-left: 5px solid #888;
+            padding-left: 10px;
+            color: #777;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background: #888;
+            color: #fff;
+            margin-top: 30px;
+        }
     </style>
 </head>
 
@@ -91,62 +129,65 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" th:inline="javascript">
     $(document).ready(function() {
-        const hoverBox = $("#header nav .gnb > li")
-        hoverBox.on('mouseover', function(){
-            $(this).addClass("active");
-        });
-        hoverBox.on('mouseout', function(){
-            $(this).removeClass("active");
-        });
+        const hoverBox = $("#header nav .gnb > li");
+        hoverBox.hover(
+            function() { // mouseenter
+                $(this).addClass("active");
+            },
+            function() { // mouseleave
+                $(this).removeClass("active");
+            }
+        );
     });
 </script>
+
 <header id="header">
     <div class="container">
-        <h1>아지트!</h1>
-        <nav id="gnb">
+        <h1>Introduce</h1>
+        <nav>
             <ul class="gnb">
-                <li><a href="#about">자기소개</a>
-                    <ul class="active">
+                <li>
+                    <a href="#about">자기소개</a>
+                    <ul class="submenu">
                         <li><a href="/notice">공지사항</a></li>
                         <li><a href="/post">게시물</a></li>
                         <li><a>test2</a></li>
                     </ul>
                 </li>
                 <li><a href="#projects">프로젝트</a>
-                    <ul class="active">
+                    <ul class="submenu">
                         <li><a>test</a></li>
                         <li><a>test1</a></li>
                         <li><a>test2</a></li>
                     </ul>
                 </li>
                 <li><a href="#skills">기술 스킬</a>
-                    <ul class="active">
+                    <ul class="submenu">
                         <li><a>test</a></li>
                         <li><a>test1</a></li>
                         <li><a>test2</a></li>
                     </ul>
                 </li>
                 <li><a href="#experience">경력</a>
-                    <ul class="active">
+                    <ul class="submenu">
                         <li><a>test</a></li>
                         <li><a>test1</a></li>
                         <li><a>test2</a></li>
                     </ul>
                 </li>
                 <li><a href="#contact">연락처</a>
-                    <ul class="active">
+                    <ul class="submenu">
                         <li><a>test</a></li>
                         <li><a>test1</a></li>
                         <li><a>test2</a></li>
                     </ul>
                 </li>
-                <li><a href="##">경로</a>
-                    <ul class="active">
+                <li><a href="#">custom</a>
+                    <ul class="submenu">
                         <li><a href="/tft">전략적 팀 전투</a></li>
                         <li><a href="/customTFT">전략적 팀 전투(수정)</a></li>
                         <li><a href="/image">image</a></li>
                         <li><a href="/image-list">image-list</a></li>
-                        <li><a></a></li>
                     </ul>
                 </li>
             </ul>
@@ -154,44 +195,42 @@
     </div>
 </header>
 
-<div class="showcase">
-    <div class="container">
-        <h1>환영합니다!</h1>
-        <p>제 포트폴리오에 오신 것을 환영합니다. 다양한 프로젝트와 경험을 공유합니다.</p>
-    </div>
-</div>
+<section class="showcase">
+    <h1>환영합니다!</h1>
+    <p>다양한 프로젝트와 경험을 공유합니다.</p>
+</section>
 
 <div class="container">
-    <div id="about" class="section content">
+    <div id="about" class="section">
         <h2>자기소개</h2>
         <p>안녕하세요. 조우형입니다.</p>
     </div>
 
-    <div id="projects" class="section content">
+    <div id="projects" class="section">
         <h2>프로젝트</h2>
-        <p>여기에 프로젝트 목록을 추가하세요.</p>
+        <ul>
+            <li th:each="name : ${list}" th:text="${name}"></li>
+        </ul>
     </div>
 
-    <div id="skills" class="section content">
+    <div id="skills" class="section">
         <h2>기술 스킬</h2>
-        <p>여기에 보유한 기술 목록을 작성하세요.</p>
+        <p>사용 기술을 작성하세요.</p>
     </div>
 
-    <div id="experience" class="section content">
+    <div id="experience" class="section">
         <h2>경력</h2>
-        <p>여기에 경력을 추가하세요.</p>
+        <p>직무 경력을 작성하세요.</p>
     </div>
 
-    <div id="contact" class="section content">
+    <div id="contact" class="section">
         <h2>연락처</h2>
         <p>010-5038-5096</p>
     </div>
-
 </div>
 
 <footer>
-    <p>Copyright © 2024. All Rights Reserved.</p>
+    Copyright © 2024. All Rights Reserved.
 </footer>
-
 </body>
 </html>
