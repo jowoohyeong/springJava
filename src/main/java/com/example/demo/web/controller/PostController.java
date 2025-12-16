@@ -57,7 +57,7 @@ public class PostController {
         return "redirect:/post/{seq}";
     }
 
-    @PostMapping("/modify/{seq}")
+    @GetMapping("/modify/{seq}")
     public String modify(@PathVariable Long seq, Model model){
         model.addAttribute("post", postService.findOne(seq));
 
