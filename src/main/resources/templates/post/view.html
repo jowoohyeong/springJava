@@ -4,79 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="|${post.title} - 게시물 상세|">게시물 상세</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/post.css}">
     <style>
-        /* 내용을 보기 좋게 표시하기 위한 간단한 스타일 */
-        .post-content {
-            border: 1px solid #e9ecef;
-            padding: 15px;
-            min-height: 200px;
-            background-color: #f8f9fa;
-            white-space: pre-wrap; /* 내용의 줄바꿈을 유지 */
-            border-radius: .25rem;
+        .meta {
+            font-size: 14px;
+            color: #888;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
         }
     </style>
 </head>
+
 <body>
 <div class="container mt-5">
-    <h1 class="mb-4" th:text="${post.title}">게시물 제목이 들어갈 자리입니다.</h1>
-    <hr>
 
-    <div class="d-flex justify-content-between text-muted mb-3 border-bottom pb-2">
-        <span th:text="|작성자: ${post.writer}|">작성자: 홍길동</span>
-        <span th:text="|작성일: ${post.regDate}|">작성일: 2025-10-21 14:00</span>
+    <h1 th:text="${post.title}">게시물 제목</h1>
+
+    <div class="d-flex justify-content-between meta">
+        <span th:text="|작성자: ${post.writer}|">작성자</span>
+        <span th:text="|작성일: ${post.regDate}|">작성일</span>
     </div>
 
-    <div class="form-group mb-5">
-        <label for="content" class="font-weight-bold">내용</label>
-        <div id="content" class="post-content" th:text="${post.content}">
-            게시물의 본문 내용이 들어갈 자리입니다.
-            내용이 길어지면 여기에 계속 표시됩니다.
+    <div class="mb-5">
+        <div class="post-content" th:text="${post.content}">
+            게시물 내용
         </div>
     </div>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a th:href="@{|/post/add/${post.seq}|}" class="btn btn-warning">수정</a>
-            <form th:action="@{/post/{seq}(seq=${post.seq})}" method="post">
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?');">
-                    게시글 삭제
+            <a th:href="@{|/post/modify/${post.seq}|}" class="btn btn-custom mr-2">
+                수정
+            </a>
+
+            <form th:action="@{/post/{seq}(seq=${post.seq})}"
+                  method="post"
+                  style="display:inline;">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit"
+                        class="btn btn-delete"
+                        onclick="return confirm('정말 삭제하시겠습니까?');">
+                    삭제
                 </button>
             </form>
         </div>
-        <a th:href="@{/post}" class="btn btn-secondary">목록으로 돌아가기</a>
+
+        <a th:href="@{/post}" class="btn btn-custom">
+            목록으로
+        </a>
     </div>
 
 </div>
-
-<script>
-    function deletePost(seq) {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            fetch('/post/' + seq, {
-                method: 'DELETE', // ⭐️ HTTP 메서드를 'DELETE'로 지정
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        // 삭제 성공 시, 원하는 페이지로 이동
-                        window.location.href = '/post';
-                    } else {
-                        alert('삭제에 실패했습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('오류가 발생했습니다.');
-                });
-        }
-    }
-</script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

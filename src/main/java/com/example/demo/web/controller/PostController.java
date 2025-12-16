@@ -24,12 +24,11 @@ public class PostController {
     @Operation(summary = "게시글 목록 조회",  description = "게시글 전체 목록을 조회합니다.")
     public String post(Model model){
         model.addAttribute("postList", postService.findList());
-
         return "post/post";
     }
 
     @GetMapping("/{seq}")
-    public String view(Model model, @PathVariable Long seq) {
+    public String view(@PathVariable Long seq, Model model) {
         model.addAttribute("post", postService.findOne(seq));
         return "post/view";
     }
@@ -37,18 +36,17 @@ public class PostController {
     @GetMapping("/add")
     public String form(Model model){
         model.addAttribute("contents", new Contents());
-        return "post/form";
+        return "post/add";
     }
     @PostMapping("/add")
     public String add(@Validated @ModelAttribute("contents") Contents contents, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         log.info("objectName = {}", bindingResult.getObjectName());
         log.info("target = {}", bindingResult.getTarget());
 
-
         if (bindingResult.hasErrors()) {
             // bindingResult 자동으로 model에 추가됨
             log.info("errors = {} ", bindingResult);
-            return "post/form";
+            return "post/add";
         }
 
         Contents contents1 = postService.save(contents);
@@ -59,6 +57,12 @@ public class PostController {
         return "redirect:/post/{seq}";
     }
 
+    @PostMapping("/modify/{seq}")
+    public String modify(@PathVariable Long seq, Model model){
+        model.addAttribute("post", postService.findOne(seq));
+
+        return "post/modify";
+    }
     @DeleteMapping("/{seq}")
     public String deleteBySeq(@PathVariable Long seq){
         postService.deleteBySeq(seq);

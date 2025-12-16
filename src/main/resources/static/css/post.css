@@ -1,0 +1,10 @@
+.post-content {
+    border: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+}
+label {
+    font-weight: 500;
+}

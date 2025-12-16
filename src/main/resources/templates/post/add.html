@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 게시물 작성</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/post.css}">
+    <style>
+        /* 입력 폼 */
+        .form-control {
+            border-radius: 5px;
+        }
+        .form-control:focus {
+            border-color: #9e9e9e;
+            box-shadow: none;
+        }
+        /* 에러 */
+        .field-error {
+            color: #b00020;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container mt-5">
+    <h1>새 게시물 작성</h1>
+
+    <form th:action th:object="${contents}" method="post">
+
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text"
+                   id="title"
+                   th:field="*{title}"
+                   th:errorclass="field-error"
+                   class="form-control"
+                   placeholder="제목을 입력하세요">
+            <div class="field-error" th:errors="*{title}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="writer">작성자</label>
+            <input type="text"
+                   id="writer"
+                   th:field="*{writer}"
+                   th:errorclass="field-error"
+                   class="form-control"
+                   placeholder="작성자 이름을 입력하세요">
+            <div class="field-error" th:errors="*{writer}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea class="form-control"
+                      id="content"
+                      th:field="*{content}"
+                      rows="10"
+                      placeholder="내용을 입력하세요"></textarea>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-custom">등록하기</button>
+            <a th:href="@{/post}" class="btn btn-back">목록으로 돌아가기</a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
