@@ -4,6 +4,7 @@ import com.example.demo.domain.document.ContentsDocument;
 import com.example.demo.service.ContentsEsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@Profile("local")
 public class ContentsController {
     private final ContentsEsService contentsEsService;
     @GetMapping("/ping")
