@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 수정</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/post.css}">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h1>게시물 수정</h1>
+
+    <!-- PUT / PATCH 용 -->
+    <input type="hidden" id="postId" th:value="${post.id}"/>
+
+    <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" id="title" th:field="${post.title}" class="form-control" placeholder="제목을 입력하세요">
+        <div class="field-error" id="titleError"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="writer">작성자</label>
+        <input type="text" id="writer" th:field="${post.writer}" class="form-control" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="content">내용</label>
+        <textarea id="content" th:field="${post.content}" rows="10" class="form-control" placeholder="내용을 입력하세요"></textarea>
+    </div>
+    <div class="d-flex justify-content-between mt-4">
+        <button type="submit" class="btn btn-custom" onclick="updatePost()">저장</button>
+        <a th:href="@{/post/{id}(id=${post.id})}" class="btn btn-custom">취소</a>
+    </div>
+</div>
+<script>
+    function clearErrors() {
+        document.getElementById('titleError').innerText = '';
+    }
+
+    function updatePost() {
+        clearErrors();
+
+        const id = document.getElementById('postId').value;
+
+        const data = {
+            title: document.getElementById('title').value,
+            writer: document.getElementById('writer').value,
+            content: document.getElementById('content').value
+        };
+
+        fetch(`/api/posts/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(async response => {
+            if (!response.ok) {
+                const errors = await response.json();
+                for (const key in errors) {
+                    const el = document.getElementById(key + 'Error');
+                    if (el) el.innerText = errors[key];
+                }
+                throw new Error('validation error');
+            }
+            location.href = `/post/${id}`;
+        })
+        .catch(err => console.error(err));
+    }
+</script>
+</body>
+</html>

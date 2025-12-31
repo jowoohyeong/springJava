@@ -30,45 +30,72 @@
 <div class="container mt-5">
     <h1>새 게시물 작성</h1>
 
-    <form th:action th:object="${contents}" method="post">
+    <form id="postForm" onsubmit="return false;">
 
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text"
-                   id="title"
-                   th:field="*{title}"
-                   th:errorclass="field-error"
-                   class="form-control"
-                   placeholder="제목을 입력하세요">
-            <div class="field-error" th:errors="*{title}"></div>
+            <input type="text" id="title" class="form-control" placeholder="제목을 입력하세요">
+            <div class="field-error" id="titleError"></div>
         </div>
 
         <div class="form-group">
             <label for="writer">작성자</label>
-            <input type="text"
-                   id="writer"
-                   th:field="*{writer}"
-                   th:errorclass="field-error"
-                   class="form-control"
-                   placeholder="작성자 이름을 입력하세요">
-            <div class="field-error" th:errors="*{writer}"></div>
+            <input type="text" id="writer" class="form-control" placeholder="작성자 이름을 입력하세요">
+            <div class="field-error" id="writerError"></div>
         </div>
 
         <div class="form-group">
             <label for="content">내용</label>
-            <textarea class="form-control"
-                      id="content"
-                      th:field="*{content}"
-                      rows="10"
-                      placeholder="내용을 입력하세요"></textarea>
+            <textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요"></textarea>
         </div>
 
         <div class="d-flex justify-content-between mt-4">
-            <button type="submit" class="btn btn-custom">등록하기</button>
+            <button type="submit" class="btn btn-custom" onclick="createPost()">등록하기</button>
             <a th:href="@{/post}" class="btn btn-back">목록으로 돌아가기</a>
         </div>
 
     </form>
 </div>
+<script>
+    function clearErrors() {
+        document.getElementById('titleError').innerText = '';
+        document.getElementById('writerError').innerText = '';
+    }
+
+    function createPost() {
+        clearErrors();
+
+        const data = {
+            title: document.getElementById('title').value,
+            writer: document.getElementById('writer').value,
+            content: document.getElementById('content').value
+        };
+
+        fetch('/api/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(async response => {
+                if (!response.ok) {
+                    const errors = await response.json();
+                    for (const key in errors) {
+                        const el = document.getElementById(key + 'Error');
+                        if (el) el.innerText = errors[key];
+                    }
+                    throw new Error('validation error');
+                }
+                return response.json();
+            })
+            .then(id => {
+                location.href = `/post/${id}`;
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+</script>
 </body>
 </html>

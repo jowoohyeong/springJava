@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "post")
 public class PostService {
@@ -35,6 +35,18 @@ public class PostService {
     @Transactional
     public Contents save(Contents contents) {
         return postRepository.save(contents);
+    }
+    @CacheEvict(key = "'all'")
+    @CachePut(key = "#id")
+    @Transactional
+    public Contents update(Long id, Contents contents) {
+        Contents findPost = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("post not found"));
+        findPost.setTitle(contents.getTitle());
+//        findPost.setWriter(contents.getWriter());
+        findPost.setContent(contents.getContent());
+
+        return findPost;
     }
 
     @CacheEvict(key = "'all'")
