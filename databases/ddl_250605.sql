@@ -1,7 +1,7 @@
 -- contents.contents definition
 
 CREATE TABLE `contents` (
-  `seq` bigint NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `content` varchar(100) DEFAULT NULL,
   `writer` varchar(100) DEFAULT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE `contents` (
   `reid` varchar(100) DEFAULT NULL,
   `relev` varchar(100) DEFAULT NULL,
   `reord` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`seq`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 

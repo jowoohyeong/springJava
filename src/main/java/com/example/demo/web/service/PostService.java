@@ -25,13 +25,13 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    @Cacheable(key = "#seq", unless = "#result == null")
-    public Contents findOne(Long seq){
-        return postRepository.findById(seq).orElse(null);
+    @Cacheable(key = "#id", unless = "#result == null")
+    public Contents findOne(Long id){
+        return postRepository.findById(id).orElse(null);
     }
 
     @CacheEvict(key = "'all'")
-    @CachePut(key = "#contents.seq")
+    @CachePut(key = "#contents.id")
     @Transactional
     public Contents save(Contents contents) {
         return postRepository.save(contents);
@@ -39,7 +39,7 @@ public class PostService {
 
     @CacheEvict(key = "'all'")
     @Transactional
-    public void deleteBySeq(Long seq){
-        postRepository.deleteById(seq);
+    public void deleteById(Long id){
+        postRepository.deleteById(id);
     }
 }

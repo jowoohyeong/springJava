@@ -53,10 +53,10 @@
         </thead>
         <tbody>
         <tr th:each="post : ${postList}">
-            <td th:text="${post.seq}">1</td>
+            <td th:text="${post.id}">1</td>
             <td>
                 <a class="post-title"
-                   th:href="@{/post/{seq}(seq=${post.seq})}"
+                   th:href="@{/post/{id}(id=${post.id})}"
                    th:text="${post.title}">
                     게시물 제목
                 </a>

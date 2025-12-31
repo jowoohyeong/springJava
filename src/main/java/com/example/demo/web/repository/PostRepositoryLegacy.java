@@ -18,12 +18,12 @@ public class PostRepositoryLegacy {
     }
 
 
-    public Contents findOne(Long seq) {
-        return entityManager.find(Contents.class, seq);
+    public Contents findOne(Long id) {
+        return entityManager.find(Contents.class, id);
     }
 
     public Contents save(Contents contents){
-        if (contents.getSeq() == null) {
+        if (contents.getId() == null) {
             entityManager.persist(contents);
             return contents;
         } else {
@@ -31,8 +31,8 @@ public class PostRepositoryLegacy {
         }
     }
 
-    public void remove(Long seq) {
-        entityManager.remove(seq);
+    public void remove(Long id) {
+        entityManager.remove(id);
     }
 
 }

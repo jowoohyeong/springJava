@@ -6,7 +6,7 @@ import com.example.demo.domain.entity.Contents;
 public class ContentsMapper {
     public static ContentsDocument toDocument(Contents entity) {
         return ContentsDocument.builder()
-                .seq(String.valueOf(entity.getSeq()))
+                .id(String.valueOf(entity.getId()))
                 .title(entity.getTitle())
                 .writer(entity.getWriter())
                 .regDate(entity.getRegDate())

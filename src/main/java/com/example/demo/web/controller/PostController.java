@@ -27,9 +27,9 @@ public class PostController {
         return "post/post";
     }
 
-    @GetMapping("/{seq}")
-    public String view(@PathVariable Long seq, Model model) {
-        model.addAttribute("post", postService.findOne(seq));
+    @GetMapping("/{id}")
+    public String findPostById(@PathVariable Long id, Model model) {
+        model.addAttribute("post", postService.findOne(id));
         return "post/view";
     }
 
@@ -38,7 +38,7 @@ public class PostController {
         model.addAttribute("contents", new Contents());
         return "post/add";
     }
-    @PostMapping("/add")
+    @PostMapping("/")
     public String add(@Validated @ModelAttribute("contents") Contents contents, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         log.info("objectName = {}", bindingResult.getObjectName());
         log.info("target = {}", bindingResult.getTarget());
@@ -51,21 +51,21 @@ public class PostController {
 
         Contents contents1 = postService.save(contents);
 
-        redirectAttributes.addAttribute("seq", contents1.getSeq());
+        redirectAttributes.addAttribute("id", contents1.getId());
         redirectAttributes.addAttribute("status", true);
 
-        return "redirect:/post/{seq}";
+        return "redirect:/post/{id}";
     }
 
-    @GetMapping("/modify/{seq}")
-    public String modify(@PathVariable Long seq, Model model){
-        model.addAttribute("post", postService.findOne(seq));
+    @PutMapping("/{id}")
+    public String modify(@PathVariable Long id, Model model){
+        model.addAttribute("post", postService.findOne(id));
 
         return "post/modify";
     }
-    @DeleteMapping("/{seq}")
-    public String deleteBySeq(@PathVariable Long seq){
-        postService.deleteBySeq(seq);
+    @DeleteMapping("/{id}")
+    public String deleteById(@PathVariable Long id){
+        postService.deleteById(id);
 
         return "redirect:/post";
     }

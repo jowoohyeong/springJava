@@ -37,11 +37,11 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a th:href="@{|/post/modify/${post.seq}|}" class="btn btn-custom mr-2">
+            <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-custom mr-2">
                 수정
             </a>
 
-            <form th:action="@{/post/{seq}(seq=${post.seq})}"
+            <form th:action="@{/post/{id}(id=${post.id})}"
                   method="post"
                   style="display:inline;">
                 <input type="hidden" name="_method" value="delete"/>

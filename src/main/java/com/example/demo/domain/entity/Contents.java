@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class Contents {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long seq;
+    private Long id;
 
     @NotBlank
     @Column(name = "title", length = 100)

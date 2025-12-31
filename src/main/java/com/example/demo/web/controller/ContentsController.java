@@ -30,12 +30,12 @@ public class ContentsController {
     }
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestParam String title,
-                                       @RequestParam String seq) {
+                                       @RequestParam String id) {
         log.info("{}", getClass().getName());
         System.out.println("title = " + title);
-        System.out.println("seq = " + seq);
+        System.out.println("id = " + id);
         ContentsDocument doc = ContentsDocument.builder()
-                .seq(seq)
+                .id(id)
                 .title(title)
                 .build();
         contentsEsService.save(doc);

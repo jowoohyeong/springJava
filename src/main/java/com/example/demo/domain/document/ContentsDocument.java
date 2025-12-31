@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Document(indexName = "contents")
 public class ContentsDocument {
     @Id
-    private String seq;
+    private String id;
 
     @Field(type = FieldType.Text)
     private String title;

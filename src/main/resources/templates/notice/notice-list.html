@@ -22,7 +22,7 @@
                 <!-- 게시물 리스트 출력 -->
                 <tr th:each="post : ${list}">
                     <td th:text="${list.id}">1</td>
-                    <td><a th:href="@{/post/{seq}(seq=${list.id})}" th:text="${list.title}">게시물 제목</a></td>
+                    <td><a th:href="@{/post/{id}(id=${list.id})}" th:text="${list.title}">게시물 제목</a></td>
                     <td th:text="${list.writer}">작성자</td>
                     <td th:text="${list.createdDate}">2025-03-05</td>
 <!--                    <td th:text="${#dates.format(post.createdDate, 'yyyy-MM-dd')}">2025-03-05</td>-->

@@ -15,7 +15,7 @@
 
     <h1>게시물 수정</h1>
 
-    <form th:action="@{/post/{seq}(seq=${post.seq})}"
+    <form th:action="@{/post/{id}(id=${post.id})}"
           th:object="${post}"
           method="post">
 
@@ -50,9 +50,9 @@
         </div>
         <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-custom">
-                수정 완료
+                저장
             </button>
-            <a th:href="@{/post/{seq}(seq=${post.seq})}"
+            <a th:href="@{/post/{id}(id=${post.id})}"
                class="btn btn-custom">
                 취소
             </a>
