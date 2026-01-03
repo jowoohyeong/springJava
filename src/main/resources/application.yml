@@ -4,11 +4,8 @@ path:
 
 spring:
   profiles:
-    active: main
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
+# TODO: no-redis, no-elasticsearch 처리, main(all)
+    active: home
   security:
     user:
       name: admin
