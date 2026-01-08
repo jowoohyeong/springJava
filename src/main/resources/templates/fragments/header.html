@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header id="header">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function() {
+            const hoverBox = $("#header nav .gnb > li");
+            hoverBox.hover(
+                function() { // mouseenter
+                    $(this).addClass("active");
+                },
+                function() { // mouseleave
+                    $(this).removeClass("active");
+                }
+            );
+        });
+    </script>
+    <div class="header-inner">
+        <h1>Introduce</h1>
+        <nav>
+            <ul class="gnb">
+                <li>
+                    <a href="#about">자기소개</a>
+                    <ul class="submenu">
+                        <li><a href="/notice">공지사항</a></li>
+                        <li><a href="/post">게시물</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projects">프로젝트</a>
+                    <ul class="submenu">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#skills">기술 스킬</a>
+                    <ul class="submenu">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#experience">경력</a>
+                    <ul class="submenu">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">연락처</a>
+                    <ul class="submenu">
+                        <li><a>test</a></li>
+                        <li><a>test1</a></li>
+                        <li><a>test2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">custom</a>
+                    <ul class="submenu">
+                        <li><a href="/tft">전략적 팀 전투</a></li>
+                        <li><a href="/customTFT">전략적 팀 전투(수정)</a></li>
+                        <li><a href="/image">image</a></li>
+                        <li><a href="/image-list">image-list</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

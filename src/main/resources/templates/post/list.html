@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/post.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <style>
         /* 테이블 */
         table {
@@ -35,6 +36,7 @@
 </head>
 
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
 <div class="container mt-5">
     <h1>게시물 리스트</h1>
 
