@@ -2,9 +2,11 @@ package com.example.demo.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -18,6 +20,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
 @Configuration
+@Profile("main")
 @Slf4j
 public class RedisConfig {
     @Value("${spring.data.redis.host}")
@@ -28,7 +31,6 @@ public class RedisConfig {
 
     /**
      * Redis 와의 연결을 위한 'Connection'을 생성합니다.
-     *
      * @return
      */
     @Bean

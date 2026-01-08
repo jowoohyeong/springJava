@@ -2,6 +2,7 @@ package com.example.demo.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
+@Profile("main")
 public class DemoController {
 
     private final RedisTemplate<String, Object> redisTemplate;
