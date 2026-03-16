@@ -40,11 +40,6 @@ dependencies {
 	// 날짜이상
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
-	//
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-
-
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 
 	runtimeOnly 'com.h2database:h2'

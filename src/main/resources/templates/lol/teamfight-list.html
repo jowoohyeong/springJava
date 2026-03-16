@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리스트 페이지</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #1e1e1e; color: #e0e0e0; }
+        .container { width: 80%; margin: 20px auto; background: #2a2a2a; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+        .search-box { text-align: right; margin-bottom: 10px; }
+        .search-box input { padding: 8px; border: 1px solid #555; border-radius: 4px; background: #3a3a3a; color: #e0e0e0; }
+        .search-box button { padding: 8px 12px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .search-box button:hover { background: #45a049; }
+        .list { display: flex; flex-direction: column; gap: 10px; }
+        .item { display: flex; flex-direction: column; gap: 8px; border: 1px solid #444; padding: 10px; border-radius: 6px; background: #333; transition: 0.3s; }
+        .item:hover { background: #444; }
+        .item-name { flex: 1; font-size: 18px; color: #e0e0e0; }
+        .item-units { color: #bfc7d5; font-size: 14px; }
+        .unit-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+        .unit-card { position: relative; width: 88px; text-align: center; }
+        .unit-image { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid #555; background: #222; }
+        .unit-name { display: inline-block; margin-top: 4px; font-size: 12px; color: #d7dde8; word-break: keep-all; cursor: help; }
+        .unit-tooltip { display: none; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); width: 260px; margin-top: 8px; padding: 12px; text-align: left; background: #171a20; border: 1px solid #4d5563; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45); z-index: 10; }
+        .unit-card:hover .unit-tooltip, .unit-name:hover + .unit-tooltip { display: block; }
+        .tooltip-header { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-bottom: 8px; }
+        .tooltip-name { font-size: 15px; font-weight: 700; color: #f1f4f8; }
+        .tooltip-cost { font-size: 12px; color: #f5c96a; }
+        .tooltip-role { font-size: 12px; color: #9fb2c8; margin-bottom: 6px; }
+        .tooltip-traits { font-size: 12px; color: #c8d1dc; margin-bottom: 6px; }
+        .tooltip-skill { font-size: 12px; color: #9fe1ff; margin-bottom: 6px; }
+        .tooltip-desc { font-size: 12px; line-height: 1.5; color: #d8dee8; }
+        ul {
+            list-style-type: none; /* 점 없애기 */
+            padding: 0; margin: 0;
+            display: flex;/* 가로로 정렬 */
+        }
+        li { margin-right: 10px; /* 항목 간 간격 설정 */ }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 검색 기능 -->
+        <div class="search-box">
+            <input type="text" placeholder="검색어 입력" />
+            <button type="submit">검색</button>
+        </div>
+
+        <!-- 리스트 출력 -->
+        <div class="list">
+            <div class="item" th:each="meta, stat : ${metaList}">
+                <div class="item-name" th:text="${meta.name}"></div>
+                <div class="unit-list">
+                    <div class="unit-card" th:each="unit : ${meta.units}">
+                        <img class="unit-image"
+                             th:if="${unit.championImageUrl != null}"
+                             th:src="${unit.championImageUrl}"
+                             th:alt="${unit.championName}" />
+                        <div class="unit-name" th:text="${unit.championName}"></div>
+                        <div class="unit-tooltip">
+                            <div class="tooltip-header">
+                                <div class="tooltip-name" th:text="${unit.championName}"></div>
+                                <div class="tooltip-cost" th:if="${unit.championCost != null}" th:text="|${unit.championCost}코스트|"></div>
+                            </div>
+                            <div class="tooltip-role" th:if="${unit.championRole != null}" th:text="${unit.championRole}"></div>
+                            <div class="tooltip-traits" th:if="${!#lists.isEmpty(unit.championTraits)}" th:text="${#strings.listJoin(unit.championTraits, ', ')}"></div>
+                            <div class="tooltip-skill" th:if="${unit.skillName != null}" th:text="|스킬: ${unit.skillName}|"></div>
+                            <div class="tooltip-desc" th:if="${unit.skillDescription != null}" th:utext="${unit.skillDescription}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
