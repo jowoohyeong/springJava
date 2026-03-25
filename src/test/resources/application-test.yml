@@ -60,3 +60,10 @@ logging:
     root: INFO
     org.springframework: INFO
     com.example: DEBUG
+
+weather:
+  openweathermap:
+    api-key: ""
+    default-city: Seoul
+    units: metric
+    lang: kr

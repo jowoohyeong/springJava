@@ -68,3 +68,10 @@ logging:
 socket:
   netty:
     port: 9005
+
+weather:
+  openweathermap:
+    api-key: 3d73892057d0d8e245676a5b34d58939
+    default-city: Seoul
+    units: metric
+    lang: kr
