@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/weather.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="weather-shell">
+    <section class="weather-error" th:if="${weatherError}">
+        <strong>날씨 정보를 불러오지 못했습니다.</strong>
+        <p th:text="${weatherError}"></p>
+    </section>
+
+    <div class="weather-topbar">
+        <div class="weather-topbar-meta">
+            <p class="weather-date-label" th:text="${selectedDate + ' 예보'}"></p>
+            <p class="weather-location" th:text="${'검색결과: ' + selectedCity}"></p>
+        </div>
+        <div class="weather-topbar-search">
+            <form class="weather-search" method="get" th:action="@{/weather}">
+                <div class="weather-search-stack">
+                    <input id="city" name="city" type="text" th:value="${selectedCity}" placeholder="금천구">
+                    <select class="weather-date-select" name="date">
+                        <option th:each="dateOption : ${availableDates}"
+                                th:value="${dateOption}"
+                                th:text="${dateOption}"
+                                th:selected="${dateOption.equals(selectedDate)}">
+                        </option>
+                    </select>
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <section class="weather-panel" th:if="${weather}">
+        <div class="weather-current">
+            <div class="weather-current-section weather-current-primary">
+                <div class="weather-heading">
+
+                    <div class="weather-primary-stack">
+                        <img class="weather-icon-lg" th:src="${weather.currentIconUrl}" alt="weather icon">
+                        <strong class="weather-temp" th:text="${weather.currentTemp}"></strong>
+                        <div class="weather-primary-metrics">
+                            <p th:text="${'강수확률 ' + weather.rainProbability}"></p>
+                            <p th:text="${'습도 ' + weather.humidity}"></p>
+                            <p th:text="${'풍속 ' + weather.windSpeed}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weather-current-section weather-current-secondary">
+                <div class="weather-summary">
+                    <p class="weather-description" th:text="${weather.currentDescription}"></p>
+                    <p th:text="${'최고 ' + weather.highTemp + ' / 최저 ' + weather.lowTemp + '( 체감 ' + weather.feelsLike + ')'}"></p>
+                    <p class="weather-sun-time" th:text="${'일출 ' + weather.sunrise + ' / 일몰 ' + weather.sunset}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-chart" th:if="${!#lists.isEmpty(weather.temperatureChart)}">
+            <div class="weather-chart-plot">
+                <svg class="weather-chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <polygon class="weather-chart-area" th:attr="points=${weather.temperatureChartAreaPoints}" points=""></polygon>
+                    <polyline class="weather-chart-line" th:attr="points=${weather.temperatureChartPolyline}" points=""></polyline>
+                    <circle class="weather-chart-dot"
+                            th:each="point : ${weather.temperatureChart}"
+                            th:attr="cx=${point.xPercent},cy=${point.yPercent},r=2.2" r="">
+                    </circle>
+                </svg>
+            </div>
+            <div class="weather-chart-bars">
+                <div class="weather-chart-point" th:each="point : ${weather.temperatureChart}">
+                    <span class="weather-chart-temp" th:text="${point.temperature}"></span>
+                    <span class="weather-chart-time" th:text="${point.timeLabel}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-forecast">
+            <div class="forecast-head">
+                <h2>시간대별 예보</h2>
+            </div>
+
+            <div class="forecast-grid">
+                <article class="forecast-card" th:each="item : ${weather.hourlyForecast}">
+                    <p class="forecast-day" th:text="${item.dayLabel}"></p>
+                    <p class="forecast-time" th:text="${item.timeLabel}"></p>
+                    <img class="forecast-icon" th:src="${item.iconUrl}" alt="forecast icon">
+                    <strong class="forecast-temp" th:text="${item.temperature}"></strong>
+                    <p class="forecast-desc" th:text="${item.description}"></p>
+                    <p class="forecast-meta" th:text="${item.tempRange}"></p>
+                    <p class="forecast-meta" th:text="${'강수 ' + item.rainProbability}"></p>
+                    <p class="forecast-meta" th:text="${'풍속 ' + item.windSpeed}"></p>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

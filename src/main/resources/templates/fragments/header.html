@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
+<div th:fragment="header">
+    <button id="header-toggle" type="button" aria-controls="header" aria-expanded="false">
+        Menu
+    </button>
 
-<header id="header">
+    <header id="header">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" th:inline="javascript">
         $(document).ready(function() {
+            const header = $("#header");
+            const toggleButton = $("#header-toggle");
+            const pageBody = $("body");
             const hoverBox = $("#header nav .gnb > li");
+
+            toggleButton.on("click", function() {
+                header.toggleClass("is-open");
+                const expanded = header.hasClass("is-open");
+                pageBody.toggleClass("header-open", expanded);
+                toggleButton.attr("aria-expanded", expanded);
+            });
+
             hoverBox.hover(
                 function() { // mouseenter
                     $(this).addClass("active");
@@ -61,6 +76,7 @@
                     <ul class="submenu">
                         <li><a href="/tft">전략적 팀 전투</a></li>
                         <li><a href="/customTFT">전략적 팀 전투(수정)</a></li>
+                        <li><a href="/weather">weather</a></li>
                         <li><a href="/image">image</a></li>
                         <li><a href="/image-list">image-list</a></li>
                     </ul>
@@ -69,5 +85,6 @@
         </nav>
     </div>
 </header>
+</div>
 </body>
 </html>

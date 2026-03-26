@@ -18,45 +18,71 @@ public record OpenForecastResponse(
             Long dt,
             MainInfo main,
             List<WeatherDescription> weather,
+            CloudsInfo clouds,
             WindInfo wind,
-            String dt_txt,
-            Double pop
+            Double visibility,
+            Double pop,
+            SysInfo sys,
+            String dt_txt
+
     ) {
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record MainInfo(
+                Double temp,
+                Double feels_like,
+                Double temp_min,
+                Double temp_max
+                , Long pressure
+                , Long sea_level
+                , Long grnd_level
+                , Integer humidity
+                , Long temp_kf
+        ) {
+        }
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+       public record WeatherDescription(
+               Integer id,
+               String main,
+               String description,
+               String icon
+       ) {
+       }
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record CloudsInfo(
+                String all
+        ) {
+        }
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record WindInfo(
+                Double speed,
+                Long deg,
+                Double gust
+        ) {
+        }
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record SysInfo(
+                String pod
+        ) {
+        }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public record MainInfo(
-            Double temp,
-            Double feels_like,
-            Double temp_min,
-            Double temp_max,
-            Integer pressure,
-            Integer humidity
+    public record CityInfo(
+            Double id
+            , String name
+            , CoordInfo coord
+            , String country
+            , Double population
+            , double timezone
+            , double sunrise
+            , double sunset
     ) {
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record WeatherDescription(
-            Integer id,
-            String main,
-            String description,
-            String icon
-    ) {
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record CityInfo(Double id, String name, String country, double timezone) {
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record WindInfo(
-            Double speed,
-            Integer deg,
-            Double gust
-    ) {
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public record SysInfo(String pod) {
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public record CoordInfo(
+                Double lat
+                , Double lon
+        ) {
+        }
     }
 }
