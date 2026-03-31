@@ -70,8 +70,7 @@ socket:
     port: 9005
 
 weather:
-  openweathermap:
-    api-key: 3d73892057d0d8e245676a5b34d58939
+  api:
+    api-key: bd23ca4f1cff4ff1aa654036263103
     default-city: Seoul
-    units: metric
-    lang: kr
+    lang: ko

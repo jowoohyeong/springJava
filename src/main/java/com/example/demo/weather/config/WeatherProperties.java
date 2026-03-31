@@ -6,12 +6,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
-@ConfigurationProperties("weather.openweathermap")
+@ConfigurationProperties("weather.api")
 public class WeatherProperties {
 
     private String apiKey;
-    private String baseUrl = "https://api.openweathermap.org";
+    private String baseUrl = "https://api.weatherapi.com/v1";
     private String defaultCity = "Seoul";
-    private String units = "metric";
-    private String lang = "kr";
+    private String lang = "ko";
 }

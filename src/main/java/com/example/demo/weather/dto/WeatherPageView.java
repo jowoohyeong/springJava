@@ -17,6 +17,9 @@ public record WeatherPageView(
         String rainProbability,
         String sunrise,
         String sunset,
+        String pm10,
+        String pm25,
+        String aqiGrade,
         String temperatureChartAreaPoints,
         String temperatureChartPolyline,
         List<TemperaturePointView> temperatureChart,
@@ -39,7 +42,9 @@ public record WeatherPageView(
             String temperature,
             String tempRange,
             String rainProbability,
-            String windSpeed
+            String windSpeed,
+            int tempPercent,
+            String tempClass
     ) {
     }
 }

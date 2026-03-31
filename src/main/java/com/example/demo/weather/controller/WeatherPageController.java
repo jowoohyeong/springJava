@@ -1,5 +1,6 @@
 package com.example.demo.weather.controller;
 
+import com.example.demo.weather.dto.WeatherPageView;
 import com.example.demo.weather.exception.WeatherApiException;
 import com.example.demo.weather.exception.WeatherConfigurationException;
 import com.example.demo.weather.service.WeatherService;
@@ -26,29 +27,18 @@ public class WeatherPageController {
     @GetMapping("/weather")
     public String weatherPage(
             @RequestParam(required = false) String city,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             Model model
     ) {
         LocalDate today = LocalDate.now(KOREA_ZONE);
-        LocalDate maxDate = today.plusDays(MAX_FORECAST_DAYS);
-        LocalDate selectedDate = date != null ? date : today;
-
-        if (selectedDate.isBefore(today)) {
-            selectedDate = today;
-        } else if (selectedDate.isAfter(maxDate)) {
-            selectedDate = maxDate;
-        }
 
         model.addAttribute("selectedCity", city);
-        model.addAttribute("minDate", today);
-        model.addAttribute("maxDate", maxDate);
-        model.addAttribute("selectedDate", selectedDate);
-        model.addAttribute("availableDates", IntStream.rangeClosed(0, MAX_FORECAST_DAYS)
-                .mapToObj(today::plusDays)
-                .toList());
+        model.addAttribute("selectedDate", today);
 
         try {
-            model.addAttribute("weather", weatherService.getWeatherPage(city, selectedDate));
+            WeatherPageView weather = weatherService.getWeatherPage(city, today);
+            model.addAttribute("weather", weather);
+            // API가 반환한 실제 도시명으로 업데이트 (예: "서울" -> "Seoul")
+            model.addAttribute("selectedCity", weather.city());
             return "weather/index";
         } catch (WeatherConfigurationException | WeatherApiException ex) {
             model.addAttribute("weatherError", ex.getMessage());

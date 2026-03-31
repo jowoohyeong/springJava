@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
-
+    <title>Weather - Naver Style</title>
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/weather.css}">
@@ -13,96 +12,144 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <main class="weather-shell">
-    <section class="weather-error" th:if="${weatherError}">
-        <strong>날씨 정보를 불러오지 못했습니다.</strong>
-        <p th:text="${weatherError}"></p>
-    </section>
-
+    <!-- 상단: 위치 및 검색 -->
     <div class="weather-topbar">
-        <div class="weather-topbar-meta">
-            <p class="weather-date-label" th:text="${selectedDate + ' 예보'}"></p>
-            <p class="weather-location" th:text="${'검색결과: ' + selectedCity}"></p>
+        <div class="location-info">
+            <h1 class="current-location" th:text="${selectedCity}">서울</h1>
+            <span class="update-time" th:text="${weather.currentDateTime + ' 업데이트'}">3월 31일 14:00 업데이트</span>
         </div>
-        <div class="weather-topbar-search">
-            <form class="weather-search" method="get" th:action="@{/weather}">
-                <div class="weather-search-stack">
-                    <input id="city" name="city" type="text" th:value="${selectedCity}" placeholder="금천구">
-                    <select class="weather-date-select" name="date">
-                        <option th:each="dateOption : ${availableDates}"
-                                th:value="${dateOption}"
-                                th:text="${dateOption}"
-                                th:selected="${dateOption.equals(selectedDate)}">
-                        </option>
-                    </select>
-                    <button type="submit">검색</button>
-                </div>
-            </form>
-        </div>
+        <form class="search-form" method="get" th:action="@{/weather}">
+            <div class="search-box">
+                <input name="city" type="text" th:value="${selectedCity}" placeholder="지역을 입력하세요">
+                <button type="submit"><i class="search-icon">🔍</i></button>
+            </div>
+        </form>
     </div>
-    <section class="weather-panel" th:if="${weather}">
-        <div class="weather-current">
-            <div class="weather-current-section weather-current-primary">
-                <div class="weather-heading">
 
-                    <div class="weather-primary-stack">
-                        <img class="weather-icon-lg" th:src="${weather.currentIconUrl}" alt="weather icon">
-                        <strong class="weather-temp" th:text="${weather.currentTemp}"></strong>
-                        <div class="weather-primary-metrics">
-                            <p th:text="${'강수확률 ' + weather.rainProbability}"></p>
-                            <p th:text="${'습도 ' + weather.humidity}"></p>
-                            <p th:text="${'풍속 ' + weather.windSpeed}"></p>
+    <section class="weather-main-panel" th:if="${weather}">
+        <!-- 현재 날씨 섹션 -->
+        <div class="weather-now-container">
+            <div class="weather-now-main centered">
+                <div class="now-visual">
+                    <img class="now-icon" th:src="${weather.currentIconUrl}" alt="weather icon">
+                    <div class="now-temp-wrap">
+                        <span class="now-temp" th:text="${weather.currentTemp}">10°</span>
+                        <span class="now-condition" th:text="${weather.currentDescription}">맑음</span>
+                    </div>
+                </div>
+                <div class="now-summary-new">
+                    <div class="temp-detail-row">
+                        <div class="temp-item">
+                            <span class="t-label">체감</span>
+                            <span class="t-value" th:text="${weather.feelsLike}">9°</span>
+                        </div>
+                        <div class="t-divider"></div>
+                        <div class="temp-item">
+                            <span class="t-label">최고</span>
+                            <span class="t-value" th:text="${weather.highTemp}">15°</span>
+                        </div>
+                        <div class="t-divider"></div>
+                        <div class="temp-item">
+                            <span class="t-label">최저</span>
+                            <span class="t-value" th:text="${weather.lowTemp}">5°</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="weather-current-section weather-current-secondary">
-                <div class="weather-summary">
-                    <p class="weather-description" th:text="${weather.currentDescription}"></p>
-                    <p th:text="${'최고 ' + weather.highTemp + ' / 최저 ' + weather.lowTemp + '( 체감 ' + weather.feelsLike + ')'}"></p>
-                    <p class="weather-sun-time" th:text="${'일출 ' + weather.sunrise + ' / 일몰 ' + weather.sunset}"></p>
+            <div class="weather-now-details">
+                <div class="detail-grid">
+                    <!-- 1행: 습도 및 강수확률 -->
+                    <div class="detail-box metric-box inline-box">
+                        <div class="metric-content">
+                            <span class="metric-icon">💧</span>
+                            <span class="label">습도</span>
+                            <span class="value main-value" th:text="${weather.humidity}">50%</span>
+                        </div>
+                    </div>
+                    <div class="detail-box metric-box inline-box">
+                        <div class="metric-content">
+                            <span class="metric-icon">☔</span>
+                            <span class="label">강수확률</span>
+                            <span class="value main-value" th:text="${weather.rainProbability}">10%</span>
+                        </div>
+                    </div>
+
+                    <!-- 2행: 대기질 정보 (미세먼지 + 초미세먼지 통합 박스) -->
+                    <div class="detail-box">
+                        <div class="aqi-rows">
+                            <div class="aqi-row hover-trigger">
+                                <span class="aqi-label">미세먼지</span>
+                                <div class="status-wrap">
+                                    <span th:class="|status-badge aqi-${weather.aqiGrade}|" th:text="${weather.aqiGrade}">보통</span>
+                                    <span class="value hover-value" th:text="${weather.pm10}">35㎍/㎥</span>
+                                </div>
+                            </div>
+                            <div class="aqi-row hover-trigger">
+                                <span class="aqi-label">초미세먼지</span>
+                                <div class="status-wrap">
+                                    <span th:class="|status-badge aqi-${weather.aqiGrade}|" th:text="${weather.aqiGrade}">보통</span>
+                                    <span class="value hover-value" th:text="${weather.pm25}">18㎍/㎥</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3행: 일출 / 일몰 (통합 박스) -->
+                    <div class="detail-box">
+                        <div class="sun-rows">
+                            <div class="sun-row">
+                                <span class="sun-label">🌅 일출</span>
+                                <span class="value" th:text="${weather.sunrise}">06:12</span>
+                            </div>
+                            <div class="sun-row">
+                                <span class="sun-label">🌇 일몰</span>
+                                <span class="value" th:text="${weather.sunset}">18:45</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="weather-chart" th:if="${!#lists.isEmpty(weather.temperatureChart)}">
-            <div class="weather-chart-plot">
-                <svg class="weather-chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                    <polygon class="weather-chart-area" th:attr="points=${weather.temperatureChartAreaPoints}" points=""></polygon>
-                    <polyline class="weather-chart-line" th:attr="points=${weather.temperatureChartPolyline}" points=""></polyline>
-                    <circle class="weather-chart-dot"
-                            th:each="point : ${weather.temperatureChart}"
-                            th:attr="cx=${point.xPercent},cy=${point.yPercent},r=2.2" r="">
-                    </circle>
-                </svg>
-            </div>
-            <div class="weather-chart-bars">
-                <div class="weather-chart-point" th:each="point : ${weather.temperatureChart}">
-                    <span class="weather-chart-temp" th:text="${point.temperature}"></span>
-                    <span class="weather-chart-time" th:text="${point.timeLabel}"></span>
+        <!-- 시간별 예보 슬라이더 -->
+        <div class="weather-forecast-section">
+            <h3 class="section-title">시간별 예보 <small>(3일간)</small></h3>
+            <div class="forecast-slider-wrap">
+                <div class="forecast-grid draggable">
+                    <article class="forecast-card" th:each="item : ${weather.hourlyForecast}">
+                        <div class="temp-bar-wrap">
+                            <div th:class="'temp-fill ' + ${item.tempClass}" th:style="'height:' + ${item.tempPercent} + '%;'"></div>
+                        </div>
+                        <b class="f-date" th:text="${item.dayLabel}">오늘</b>
+                        <span class="f-time" th:text="${item.timeLabel}">15:00</span>
+                        <img class="f-icon" th:src="${item.iconUrl}" alt="icon">
+                        <strong class="f-temp" th:text="${item.temperature}">11°</strong>
+                        <span class="f-pop" th:text="${item.rainProbability}">10%</span>
+                    </article>
                 </div>
-            </div>
-        </div>
-
-        <div class="weather-forecast">
-            <div class="forecast-head">
-                <h2>시간대별 예보</h2>
-            </div>
-
-            <div class="forecast-grid">
-                <article class="forecast-card" th:each="item : ${weather.hourlyForecast}">
-                    <p class="forecast-day" th:text="${item.dayLabel}"></p>
-                    <p class="forecast-time" th:text="${item.timeLabel}"></p>
-                    <img class="forecast-icon" th:src="${item.iconUrl}" alt="forecast icon">
-                    <strong class="forecast-temp" th:text="${item.temperature}"></strong>
-                    <p class="forecast-desc" th:text="${item.description}"></p>
-                    <p class="forecast-meta" th:text="${item.tempRange}"></p>
-                    <p class="forecast-meta" th:text="${'강수 ' + item.rainProbability}"></p>
-                    <p class="forecast-meta" th:text="${'풍속 ' + item.windSpeed}"></p>
-                </article>
             </div>
         </div>
     </section>
 </main>
+
+<script>
+    const slider = document.querySelector('.draggable');
+    let isDown = false, startX, scrollLeft;
+    slider.querySelectorAll('img').forEach(img => img.addEventListener('dragstart', (e) => e.preventDefault()));
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true; slider.classList.add('grabbing');
+        startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+        slider.style.scrollBehavior = 'auto';
+    });
+    const endDrag = () => { isDown = false; slider.classList.remove('grabbing'); };
+    slider.addEventListener('mouseleave', endDrag);
+    slider.addEventListener('mouseup', endDrag);
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return; e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2.5; slider.scrollLeft = scrollLeft - walk;
+    });
+</script>
 </body>
 </html>
